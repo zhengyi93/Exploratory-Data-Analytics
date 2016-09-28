@@ -13,8 +13,14 @@ Coal <- SCC$SCC[grep("Coal", SCC$EI.Sector)]
 CoalEmissions <- NEI %>% filter(SCC %in% Coal) %>% group_by(year) %>%
     summarize(totalEmissions = sum(Emissions, na.rm = TRUE))
 
+# Plot 4
+png("plot4.png")
+
+
 # ggplot2 plots via facets (type), regression line added to display trend
 qplot(year, totalEmissions, data = CoalEmissions) + 
     geom_smooth(method = "lm") +
     labs(title = "Plot of PM2.5 Emissions (Tonnes) against year from coal combustion-related source") +
     labs (y = "Total Emissions (Tons)", x = "Year")
+
+dev.off()

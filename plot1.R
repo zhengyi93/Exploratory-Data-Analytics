@@ -7,6 +7,9 @@ NEI <- readRDS("summarySCC_PM25.rds")
 # Group elements by year and summarize them via sum
 totalEmissions <- NEI %>% group_by(year) %>% summarize(totalEmissions = sum(Emissions, na.rm = TRUE))
 
+# Plot 1
+png("plot1.png")
+
 # Slightly adjust left margin
 par(mar = c(5, 6, 4, 2))
 
@@ -24,3 +27,5 @@ axis(2, at=c(4e6, 5e6, 6e6, 7e6), labels = c(4, 5, 6, 7))
 # Display regression line in red
 model <- lm(totalEmissions ~ year, totalEmissions)
 abline(model, lwd = 2, col = "red")
+
+dev.off()

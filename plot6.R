@@ -18,6 +18,9 @@ LA <- NEI %>% filter(fips == "06037" & SCC %in% motorVehicle) %>%
     group_by(year, fips) %>%
     summarize(totalEmissions = sum(Emissions, na.rm = TRUE))
 
+# Plot 6
+png("plot6.png")
+
 # Plotting Note: y-axis of both plots are scaled to have 3000 Tonnes difference between extremes
 # Multiple plot + margin scaling
 par(mfrow = c(1, 2), mar = c(5, 5, 4, 2), oma = c(0, 0, 2, 0))
@@ -26,7 +29,7 @@ par(mfrow = c(1, 2), mar = c(5, 5, 4, 2), oma = c(0, 0, 2, 0))
 with(Baltimore, plot(year, totalEmissions,
                          main = "Baltimore City",
                          xlab = "Year", ylab = "Total PM2.5 Emission (Tonnes)",
-                         ylim = c(-1000, 2000), xaxt = "n", pch = 4))
+                         ylim = c(-2000, 2000), xaxt = "n", pch = 4))
 
 # Relabel axis into a readable form
 axis(1, at=c(1999, 2002, 2005, 2008))
@@ -39,7 +42,7 @@ abline(model, lwd = 2, col = "red")
 with(LA, plot(year, totalEmissions,
                          main = "Los Angeles County",
                          xlab = "Year", ylab = "Total PM2.5 Emission (Tonnes)",
-                         ylim = c(8000, 11000), xaxt = "n", pch = 4))
+                         ylim = c(7500, 11500), xaxt = "n", pch = 4))
 
 # Relabel axis into a readable form
 axis(1, at=c(1999, 2002, 2005, 2008))
@@ -50,3 +53,5 @@ abline(model, lwd = 2, col = "red")
 
 # Add an overall title
 title(main = "Plot of PM2.5 Emissions (Tonnes) against year from motor vehicle sources", outer = TRUE)
+
+dev.off()

@@ -13,8 +13,13 @@ motorVehicle <- SCC$SCC[grep("Mobile", SCC$EI.Sector)]
 motorVehicleEmissions <- NEI %>% filter(fips == "24510" & SCC %in% motorVehicle) %>% group_by(year) %>%
     summarize(totalEmissions = sum(Emissions, na.rm = TRUE))
 
+# Plot 5
+png("plot5.png")
+
 # ggplot2 plots via facets (type), regression line added to display trend
 qplot(year, totalEmissions, data = motorVehicleEmissions) + 
     geom_smooth(method = "lm") +
     labs(title = "Plot of PM2.5 Emissions (Tonnes) against year from motor vehicle sources in Baltimore") +
     labs (y = "Total Emissions (Tons)", x = "Year")
+
+dev.off()

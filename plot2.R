@@ -8,6 +8,10 @@ NEI <- readRDS("summarySCC_PM25.rds")
 BaltimoreCity <- NEI %>% filter(fips == "24510") %>% group_by(year) %>%
     summarize(totalEmissions = sum(Emissions, na.rm = TRUE))
 
+# Plot 2
+png("plot2.png")
+
+
 # Slightly adjust left margin
 par(mar = c(5, 6, 4, 2))
 
@@ -23,3 +27,5 @@ axis(1, at=c(1999, 2002, 2005, 2008))
 # Display regression line in red
 model <- lm(totalEmissions ~ year, BaltimoreCity)
 abline(model, lwd = 2, col = "red")
+
+dev.off()
